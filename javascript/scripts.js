@@ -33,10 +33,56 @@ function cardsValidation(numberOfCards) {
     }
 }
 
+function setWaitTime(gameCards){
+    let allCards = document.querySelectorAll(".card");
+
+    if (gameCards.length < allCards.length / 2){
+        return 3000;
+    }else{
+        return 5000;
+    }
+
+}
+
+function shuffleCards(gameCards) {
+    let cardImg = [];
+    let card;
+
+    function classifier() {
+        return Math.random() - 0.5;
+    }
+
+    for (card in gameCards) {
+        cardImg.push(gameCards[card].querySelector(".back-face").children[0].src);
+    }
+
+    cardImg.sort(classifier);
+
+    for (card in gameCards) {
+        gameCards[card].querySelector(".back-face").children[0].src = cardImg[card];
+    }
+}
+
+function firstViewTimer(gameCards){
+    for (card in gameCards) {
+        flipCard(gameCards[card]);
+    }
+
+    setTimeout(
+        function (){
+            for (card in gameCards) {
+                flipCard(gameCards[card]);
+            }
+        },
+        setWaitTime(gameCards)
+    );
+}
+
 function cardActivator(element) {
     if (!(element.classList.contains("correct") || element.classList.contains("active"))) {
         element.classList.add("active");
         flipCard(element);
+        addMoves();
         activeChecker(element);
     }
 }
@@ -54,6 +100,18 @@ function activeChecker(element) {
         scoreValidation(activeCards);
     }
 }
+
+function addScore() {
+    let score = document.getElementById("score").children[1];
+    score.innerHTML = document.querySelectorAll(".correct").length / 2;
+}
+
+function addMoves() {
+    let moves = document.getElementById("moves").children[1];
+    moves.innerHTML = Number(moves.innerHTML) + 1;
+}
+
+function scoreValidation(activeCards) {}
 
 function gameStarter() {
     let numberOfCards = setterNumberOfCards();
@@ -73,6 +131,12 @@ function gameStarter() {
         }
     }
 
+    shuffleCards(gameCards);
+    firstViewTimer(gameCards);
 }
+
+function endGameChecker() {}
+
+function resetGameValidation(userInput) {}
 
 gameStarter();
