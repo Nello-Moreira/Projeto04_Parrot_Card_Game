@@ -33,12 +33,12 @@ function cardsValidation(numberOfCards) {
     }
 }
 
-function setWaitTime(gameCards){
+function setWaitTime(gameCards) {
     let allCards = document.querySelectorAll(".card");
 
-    if (gameCards.length < allCards.length / 2){
+    if (gameCards.length < allCards.length / 2) {
         return 3000;
-    }else{
+    } else {
         return 5000;
     }
 
@@ -63,13 +63,13 @@ function shuffleCards(gameCards) {
     }
 }
 
-function firstViewTimer(gameCards){
+function firstViewTimer(gameCards) {
     for (card in gameCards) {
         flipCard(gameCards[card]);
     }
 
     setTimeout(
-        function (){
+        function () {
             for (card in gameCards) {
                 flipCard(gameCards[card]);
             }
@@ -157,6 +157,7 @@ function gameStarter() {
 
     shuffleCards(gameCards);
     firstViewTimer(gameCards);
+    setTimeout(startTimer, setWaitTime(gameCards));
 }
 
 function endGameChecker() {
@@ -166,7 +167,13 @@ function endGameChecker() {
     let moves = document.getElementById("moves").children[1];
 
     if (allCards.length - hiddenCards.length === correctCards.length) {
-        alert(`Você ganhou em ${moves.innerHTML} jogadas!`);
+        // stop timer
+        clearInterval(document.getElementById("timerID").innerHTML);
+        let gameTime = document.getElementById("time").children[1].innerHTML;
+
+        // Final score message
+        alert(`Você ganhou em ${moves.innerHTML} jogadas e ${gameTime} segundos!`);
+
         let playAgain = prompt("Digite sim para jogar de novo");
         if (resetGameValidation(playAgain)) {
             window.location.reload();
@@ -175,11 +182,20 @@ function endGameChecker() {
 }
 
 function resetGameValidation(userInput) {
-    if (userInput === "sim"){
+    if (userInput === "sim") {
         return true;
-    }else{
+    } else {
         return false;
     }
+}
+
+function addSeconds() {
+    let time = document.getElementById("time").children[1];
+    time.innerHTML = Number(time.innerHTML) + 1;
+}
+
+function startTimer() {
+    document.getElementById("timerID").innerHTML = setInterval(addSeconds, 1000);
 }
 
 gameStarter();
