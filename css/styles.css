@@ -9,18 +9,43 @@ body {
     align-items: center;
 }
 
-h1{
-    margin-top: 40px;
+h1 {
+    margin: 40px 0;
+    padding-left: 10px;
+    text-align: center;
 }
 
 .game-screen {
-    display:flex;
+    margin: 0 auto;
+    width: 80vw;
+    display: flex;
+    justify-content: space-around;
     flex-wrap: wrap;
 }
 
-.test-box {
+.cards {
+    height: 150px;
+    width: 120px;
+    margin: 0 10px 30px;
+    background-color: #A7E9AF;
+    border: 1px solid #99CEA8;
+    border-radius: 5px;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+}
+
+.cards img {
+    width: 100px;
     height: 100px;
-    width: 80px;
-    margin: 30px;
-    background-color: red;
+}
+
+.hidden{
+    display: none;
+}
+
+@media (max-width: 1000px) {
+    body {
+        font-size: 36px;
+    }
 }
