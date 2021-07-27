@@ -24,12 +24,25 @@ function cardsValidation(numberOfCards) {
 
 function game() {
     let numberOfCards = setterNumberOfCards();
-    let deck = document.getElementsByClassName("cards");
+    let deck = document.getElementsByClassName("card");
 
     // hiding the undesired cards
     for (let i = numberOfCards; i < 14; i++) {
             deck[i].classList.add("hidden");
     }
+}
+
+function flipCard(element) {
+    let frontFace = element.querySelector(".front-face");
+    let backFace = element.querySelector(".back-face");
+
+    frontFace.classList.remove("front-face");
+    frontFace.classList.add("back-face");
+
+    backFace.classList.remove("back-face");
+    backFace.classList.add("front-face");
+
+    element.classList.add("active")
 }
 
 game();

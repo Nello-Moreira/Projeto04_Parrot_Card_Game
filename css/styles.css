@@ -23,26 +23,48 @@ h1 {
     flex-wrap: wrap;
 }
 
-.cards {
+.card {
     height: 150px;
     width: 120px;
     margin: 0 10px 30px;
+    position: relative;
+}
+
+.card>div {
+    height:100%;
+    width: 100%;
     background-color: #A7E9AF;
     border: 1px solid #99CEA8;
     border-radius: 5px;
     display: flex;
     justify-content:center;
     align-items: center;
+
+    position: absolute;
+    backface-visibility: hidden;
+    transition: all 0.5s;
 }
 
-.cards img {
+.card img {
     width: 100px;
     height: 100px;
+}
+
+.front-face{
+    transform: rotateY(0deg);
+}
+
+.back-face{
+    transform: rotateY(180deg);
 }
 
 .hidden{
     display: none;
 }
+
+.active{}
+
+.checked{}
 
 @media (max-width: 1000px) {
     body {
