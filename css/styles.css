@@ -1,0 +1,26 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 56px;
+    font-weight: 700;
+    color: #75B79E;
+    background-color: #EEF9BF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1{
+    margin-top: 40px;
+}
+
+.game-screen {
+    display:flex;
+    flex-wrap: wrap;
+}
+
+.test-box {
+    height: 100px;
+    width: 80px;
+    margin: 30px;
+    background-color: red;
+}
