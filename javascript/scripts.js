@@ -111,7 +111,31 @@ function addMoves() {
     moves.innerHTML = Number(moves.innerHTML) + 1;
 }
 
-function scoreValidation(activeCards) {}
+function scoreValidation(activeCards) {
+    let firstActiveImgSrc = activeCards[0].querySelector(".front-face").children[0].src;
+    let lastActiveImgSrc = activeCards[1].querySelector(".front-face").children[0].src;
+    let i = 0;
+
+    if (firstActiveImgSrc === lastActiveImgSrc) {
+        for (i; i < activeCards.length; i++) {
+            cardDeactivator(activeCards[i]);
+            activeCards[i].classList.add("correct");
+            addScore();
+        }
+        endGameChecker();
+    } else {
+        // wait a second after failing
+        // then flip the cards back to the initial position
+        setTimeout(
+            function () {
+                for (i; i < activeCards.length; i++) {
+                    cardDeactivator(activeCards[i]);
+                    flipCard(activeCards[i]);
+                }
+            }, 1000
+        );
+    }
+}
 
 function gameStarter() {
     let numberOfCards = setterNumberOfCards();
@@ -135,8 +159,27 @@ function gameStarter() {
     firstViewTimer(gameCards);
 }
 
-function endGameChecker() {}
+function endGameChecker() {
+    let allCards = document.querySelectorAll(".card");
+    let hiddenCards = document.querySelectorAll(".hidden");
+    let correctCards = document.querySelectorAll(".correct");
+    let moves = document.getElementById("moves").children[1];
 
-function resetGameValidation(userInput) {}
+    if (allCards.length - hiddenCards.length === correctCards.length) {
+        alert(`Você ganhou em ${moves.innerHTML} jogadas!`);
+        let playAgain = prompt("Digite sim para jogar de novo");
+        if (resetGameValidation(playAgain)) {
+            window.location.reload();
+        }
+    }
+}
+
+function resetGameValidation(userInput) {
+    if (userInput === "sim"){
+        return true;
+    }else{
+        return false;
+    }
+}
 
 gameStarter();
