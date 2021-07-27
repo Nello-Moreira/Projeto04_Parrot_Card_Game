@@ -22,9 +22,26 @@
 </head>
 
 <body>
-    <h1>PARROT CARD GAME</h1>
+    <header>
+        <h1>PARROT CARD GAME</h1>
+        <div class="game-infos">
+            <div id="score">
+                <p>Pontos: </p>
+                <p>0</p>
+            </div>
+            <div id="moves">
+                <p>Jogadas: </p>
+                <p>0</p>
+            </div>
+            <div id="time">
+                <p>Tempo: </p>
+                <p>0</p>
+            </div>
+    </header>
+
+    </div>
     <div class="game-screen">
-        <div class="card" onclick="flipCard(this)">
+        <div class="card" onclick="cardActivator(this)">
             <div class="back-face">
                 <img src="assets/bobrossparrot.gif">
             </div>
@@ -34,7 +51,7 @@
 
         </div>
 
-        <div class="card" onclick="flipCard(this)">
+        <div class="card" onclick="cardActivator(this)">
             <div class="back-face">
                 <img src="assets/bobrossparrot.gif">
             </div>
@@ -44,7 +61,7 @@
 
         </div>
 
-        <div class="card" onclick="flipCard(this)">
+        <div class="card" onclick="cardActivator(this)">
             <div class="back-face">
                 <img src="assets/explodyparrot.gif">
             </div>
@@ -54,7 +71,7 @@
 
         </div>
 
-        <div class="card" onclick="flipCard(this)">
+        <div class="card" onclick="cardActivator(this)">
             <div class="back-face">
                 <img src="assets/explodyparrot.gif">
             </div>
@@ -64,7 +81,7 @@
 
         </div>
 
-        <div class="card" onclick="flipCard(this)">
+        <div class="card" onclick="cardActivator(this)">
             <div class="back-face">
                 <img src="assets/fiestaparrot.gif">
             </div>
@@ -74,7 +91,7 @@
 
         </div>
 
-        <div class="card" onclick="flipCard(this)">
+        <div class="card" onclick="cardActivator(this)">
             <div class="back-face">
                 <img src="assets/fiestaparrot.gif">
             </div>
@@ -84,7 +101,7 @@
 
         </div>
 
-        <div class="card" onclick="flipCard(this)">
+        <div class="card" onclick="cardActivator(this)">
             <div class="back-face">
                 <img src="assets/metalparrot.gif">
             </div>
@@ -94,7 +111,7 @@
 
         </div>
 
-        <div class="card" onclick="flipCard(this)">
+        <div class="card" onclick="cardActivator(this)">
             <div class="back-face">
                 <img src="assets/metalparrot.gif">
             </div>
@@ -104,7 +121,7 @@
 
         </div>
 
-        <div class="card" onclick="flipCard(this)">
+        <div class="card" onclick="cardActivator(this)">
             <div class="back-face">
                 <img src="assets/revertitparrot.gif">
             </div>
@@ -114,7 +131,7 @@
 
         </div>
 
-        <div class="card" onclick="flipCard(this)">
+        <div class="card" onclick="cardActivator(this)">
             <div class="back-face">
                 <img src="assets/revertitparrot.gif">
             </div>
@@ -124,7 +141,7 @@
 
         </div>
 
-        <div class="card" onclick="flipCard(this)">
+        <div class="card" onclick="cardActivator(this)">
             <div class="back-face">
                 <img src="assets/tripletsparrot.gif">
             </div>
@@ -134,7 +151,7 @@
 
         </div>
 
-        <div class="card" onclick="flipCard(this)">
+        <div class="card" onclick="cardActivator(this)">
             <div class="back-face">
                 <img src="assets/tripletsparrot.gif">
             </div>
@@ -144,7 +161,7 @@
 
         </div>
 
-        <div class="card" onclick="flipCard(this)">
+        <div class="card" onclick="cardActivator(this)">
             <div class="back-face">
                 <img src="assets/unicornparrot.gif">
             </div>
@@ -154,7 +171,7 @@
 
         </div>
 
-        <div class="card" onclick="flipCard(this)">
+        <div class="card" onclick="cardActivator(this)">
             <div class="back-face">
                 <img src="assets/unicornparrot.gif">
             </div>
