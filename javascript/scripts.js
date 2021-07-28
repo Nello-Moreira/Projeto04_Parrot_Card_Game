@@ -1,6 +1,6 @@
 function flipCard(element) {
-    let frontFace = element.querySelector(".front-face");
-    let backFace = element.querySelector(".back-face");
+    const frontFace = element.querySelector(".front-face");
+    const backFace = element.querySelector(".back-face");
 
     frontFace.classList.remove("front-face");
     frontFace.classList.add("back-face");
@@ -10,7 +10,7 @@ function flipCard(element) {
 }
 
 function setterNumberOfCards() {
-    let numberOfCards = prompt("Insira o número de cartas (pares entre 4 e 14)");
+    const numberOfCards = prompt("Insira o número de cartas (pares entre 4 e 14)");
 
     while (!cardsValidation(numberOfCards)) {
         numberOfCards = prompt("Insira o número de cartas (pares entre 4 e 14)");
@@ -34,7 +34,7 @@ function cardsValidation(numberOfCards) {
 }
 
 function setWaitTime(gameCards) {
-    let allCards = document.querySelectorAll(".card");
+    const allCards = document.querySelectorAll(".card");
 
     if (gameCards.length < allCards.length / 2) {
         return 3000;
@@ -45,7 +45,7 @@ function setWaitTime(gameCards) {
 }
 
 function shuffleCards(gameCards) {
-    let cardImg = [];
+    const cardImg = [];
     let card;
 
     function classifier() {
@@ -94,7 +94,7 @@ function cardDeactivator(element) {
 }
 
 function activeChecker(element) {
-    let activeCards = document.querySelectorAll(".active");
+    const activeCards = document.querySelectorAll(".active");
 
     if (activeCards.length === 2) {
         scoreValidation(activeCards);
@@ -102,18 +102,18 @@ function activeChecker(element) {
 }
 
 function addScore() {
-    let score = document.getElementById("score").children[1];
+    const score = document.getElementById("score").children[1];
     score.innerHTML = document.querySelectorAll(".correct").length / 2;
 }
 
 function addMoves() {
-    let moves = document.getElementById("moves").children[1];
+    const moves = document.getElementById("moves").children[1];
     moves.innerHTML = Number(moves.innerHTML) + 1;
 }
 
 function scoreValidation(activeCards) {
-    let firstActiveImgSrc = activeCards[0].querySelector(".front-face").children[0].src;
-    let lastActiveImgSrc = activeCards[1].querySelector(".front-face").children[0].src;
+    const firstActiveImgSrc = activeCards[0].querySelector(".front-face").children[0].src;
+    const lastActiveImgSrc = activeCards[1].querySelector(".front-face").children[0].src;
     let i = 0;
 
     if (firstActiveImgSrc === lastActiveImgSrc) {
@@ -138,13 +138,13 @@ function scoreValidation(activeCards) {
 }
 
 function gameStarter() {
-    let numberOfCards = setterNumberOfCards();
-    let deck = document.getElementsByClassName("card");
-    let gameCards = [];
+    const numberOfCards = setterNumberOfCards();
+    const deck = document.getElementsByClassName("card");
+    const gameCards = [];
     let i = 0;
 
     // hiding the undesired cards
-    for (let i = numberOfCards; i < 14; i++) {
+    for (i = numberOfCards; i < 14; i++) {
         deck[i].classList.add("hidden");
     }
 
@@ -161,10 +161,10 @@ function gameStarter() {
 }
 
 function endGameChecker() {
-    let allCards = document.querySelectorAll(".card");
-    let hiddenCards = document.querySelectorAll(".hidden");
-    let correctCards = document.querySelectorAll(".correct");
-    let moves = document.getElementById("moves").children[1];
+    const allCards = document.querySelectorAll(".card");
+    const hiddenCards = document.querySelectorAll(".hidden");
+    const correctCards = document.querySelectorAll(".correct");
+    const moves = document.getElementById("moves").children[1];
 
     if (allCards.length - hiddenCards.length === correctCards.length) {
         // stop timer
@@ -190,7 +190,7 @@ function resetGameValidation(userInput) {
 }
 
 function addSeconds() {
-    let time = document.getElementById("time").children[1];
+    const time = document.getElementById("time").children[1];
     time.innerHTML = Number(time.innerHTML) + 1;
 }
 
