@@ -24,7 +24,7 @@
 <body>
     <header>
         <h1>PARROT CARD GAME</h1>
-        <div class="game-infos">
+        <div class="game-infos hidden">
             <div id="score">
                 <p>Pontos: </p>
                 <p>0</p>
@@ -41,7 +41,23 @@
         </div>
     </header>
 
-    <div class="game-screen"></div> 
+    <div class="menu">
+        <p>Bem vindo ao Parrot Card Game!</p>
+        <p>Selecione com quantas cartas deseja jogar:</p>
+        <input type="number" name="numberOfCards" id="numberOfCards" min="4" max="14" step="2" placeholder="4  -  14" required>
+        <input type="button" value="Começar" onclick="setterNumberOfCards()">
+    </div>
+
+    <div class="game-screen"></div>
+
+    <div class="final-score-screen hidden">
+        <p></p>
+        <p>Deseja jogar de novo?</p>
+        <div class="play-again-buttons-container">
+            <div class="yes" onclick="resetGame()">Sim</div>
+            <div class="no" onclick="quit()">Não</div>
+        </div>
+    </div>
 
     <script src="javascript/scripts.js"></script>
 </body>

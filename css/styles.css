@@ -39,6 +39,43 @@ h1 {
     display: none;
 }
 
+.menu{
+    color: #EEF9BF;
+    background-color: #75B79E;
+    border-radius: 10px;
+    border: 1px solid #268f67;
+    position: fixed;
+    height: 50vh;
+    width: 50vw;
+    top: 25vh;
+    left: 25vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.menu>p{
+    font-size: 25px;
+    width: 70%;
+}
+
+.menu>input{
+    width: 40%;
+    height: 7vh;
+    border: 1px solid #268f67;
+    border-radius: 10px;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    color: #268f67;
+}
+
+.menu>input:last-child{
+    cursor: pointer;
+}
+
 .game-screen {
     margin: 0 auto;
     width: 80vw;
@@ -82,6 +119,55 @@ h1 {
     transform: rotateY(180deg);
 }
 
+.final-score-screen{
+    color: #EEF9BF;
+    background-color: #75B79E;
+    border-radius: 10px;
+    border: 1px solid #268f67;
+    position: fixed;
+    height: 50vh;
+    width: 50vw;
+    top: 25vh;
+    left: 25vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.final-score-screen>*{
+    width: 70%;
+}
+
+.final-score-screen>p{
+    font-size: 25px;
+}
+
+.play-again-buttons-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.play-again-buttons-container>div{
+    font-size: 20px;
+    height: 10vh;
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.yes{
+    background-color: rgb(0, 128, 0);
+}
+
+.no{
+    background-color: rgb(250, 0, 0);
+}
+
 .hidden{
     display: none;
 }
@@ -104,5 +190,34 @@ h1 {
         flex-direction: column;
         align-items: center;
     }
-
+    .menu{
+        width: 90vw;
+        height: 70vh;
+        top: 15vh;
+        left: 5vw;
+    }
+    .menu>p{
+        width: 90%;
+    }
+    .menu>input{
+        width: 90%;
+        height: 13%;
+    }
+    .final-score-screen{
+        width: 90vw;
+        height: 70vh;
+        top: 15vh;
+        left: 5vw;
+    }
+    .play-again-buttons-container{
+        flex-direction: column;
+    }
+    .play-again-buttons-container>div{
+        margin-top: 5%;
+        height: 10vh;
+        width: 100%;
+    }
+    .final-score-screen>* {
+        width: 90%;
+    }
 }

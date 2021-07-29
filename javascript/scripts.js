@@ -22,13 +22,13 @@ function flipCard(element) {
 }
 
 function setterNumberOfCards() {
-    let numberOfCards = prompt("Insira o número de cartas (pares entre 4 e 14)");
+    let numberOfCards = document.getElementById("numberOfCards").value;
 
-    while (!cardsValidation(numberOfCards)) {
-        numberOfCards = prompt("Insira o número de cartas (pares entre 4 e 14)");
+    if (!cardsValidation(numberOfCards)) {
+        alert("O número de cartas deve ser um número par entre 4 e 14");
+    }else{
+        gameStarter(numberOfCards);
     }
-
-    return Number(numberOfCards);
 }
 
 function cardsValidation(numberOfCards) {
@@ -53,7 +53,6 @@ function createCards(numberOfCards) {
     for (let i = 0; i < numberOfCards; i++) {
         const card = document.createElement('div');
         card.classList.add("card");
-        card.setAttribute("onclick", "cardActivator(this)");
 
         for (faceClass in faceClassList) {
             const face = document.createElement('div');
@@ -72,8 +71,16 @@ function createCards(numberOfCards) {
             face.appendChild(faceImg);
             card.appendChild(face);
         }
-        
+
         gameScreen.appendChild(card);
+    }
+}
+
+function setCardsAction() {
+    const allCards = document.querySelectorAll(".card");
+
+    for (let i = 0; i < allCards.length; i++) {
+        allCards[i].setAttribute("onclick", "cardActivator(this)");
     }
 }
 
@@ -120,7 +127,6 @@ function cardActivator(element) {
     if (!(element.classList.contains("correct") || element.classList.contains("active"))) {
         element.classList.add("active");
         flipCard(element);
-        addMoves();
         activeChecker(element);
     }
 }
@@ -135,6 +141,7 @@ function activeChecker(element) {
     const activeCards = document.querySelectorAll(".active");
 
     if (activeCards.length === 2) {
+        addMoves();
         scoreValidation(activeCards);
     }
 }
@@ -174,34 +181,35 @@ function scoreValidation(activeCards) {
     }
 }
 
-function gameStarter() {
-    const numberOfCards = setterNumberOfCards();
+function gameStarter(numberOfCards) {
+    menuHandler();
     createCards(numberOfCards);
     
     const gameCards = document.getElementsByClassName("card");
     shuffleCards(gameCards);
     // Let the player see the cards for the first time
     firstViewTimer(gameCards);
+    setTimeout(setCardsAction, setWaitTime(gameCards));
     setTimeout(startTimer, setWaitTime(gameCards));
 }
 
 function endGameChecker() {
     const allCards = document.querySelectorAll(".card");
     const correctCards = document.querySelectorAll(".correct");
-    const moves = document.getElementById("moves").children[1];
 
     if (allCards.length === correctCards.length) {
         // stop timer
         clearInterval(document.getElementById("timerID").innerHTML);
         let gameTime = document.getElementById("time").children[1].innerHTML;
 
-        // Final score message
-        alert(`Você ganhou em ${moves.innerHTML} jogadas e ${gameTime} segundos!`);
+        //get moves
+        const moves = document.getElementById("moves").children[1].innerHTML;
 
-        let playAgain = prompt("Digite sim para jogar de novo");
-        if (resetGameValidation(playAgain)) {
-            window.location.reload();
-        }
+        // Final score message
+        const message = `Você ganhou em ${moves} jogadas e ${gameTime} segundos!`;
+        const finalScoreScreen = document.querySelector(".final-score-screen");
+        finalScoreScreen.children[0].innerHTML = message;
+        finalScoreScreen.classList.remove("hidden");
     }
 }
 
@@ -222,4 +230,29 @@ function startTimer() {
     document.getElementById("timerID").innerHTML = setInterval(addSeconds, 1000);
 }
 
-gameStarter();
+function menuHandler(){
+    const menu = document.querySelector(".menu");
+    menu.classList.add("hidden");
+
+    const gameInfos = document.querySelector(".game-infos");
+    gameInfos.classList.remove("hidden");
+}
+
+function resetGame(){
+    document.querySelector(".game-infos").classList.add("hidden");
+    document.querySelector(".menu").classList.remove("hidden");
+    document.querySelector(".final-score-screen").classList.add("hidden");
+    document.getElementById("score").children[1].innerHTML = 0;
+    document.getElementById("moves").children[1].innerHTML = 0;
+    document.getElementById("time").children[1].innerHTML = 0;
+
+    let gameScreen = document.querySelector(".game-screen");
+    let allCards = document.querySelectorAll(".card");
+    for (let i = allCards.length - 1; i >= 0; i--){
+        gameScreen.removeChild(allCards[i]);
+    }
+}
+
+function quit(){
+    document.querySelector(".final-score-screen").classList.add("hidden");
+}
