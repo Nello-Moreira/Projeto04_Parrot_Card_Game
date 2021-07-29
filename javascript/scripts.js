@@ -71,8 +71,9 @@ function createCards(numberOfCards) {
             
             face.appendChild(faceImg);
             card.appendChild(face);
-            gameScreen.appendChild(card);
-        } 
+        }
+        
+        gameScreen.appendChild(card);
     }
 }
 
