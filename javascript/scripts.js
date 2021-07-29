@@ -1,3 +1,15 @@
+function getGameImages(){
+    return [
+        "assets/bobrossparrot.gif",
+        "assets/explodyparrot.gif",
+        "assets/fiestaparrot.gif",
+        "assets/metalparrot.gif",
+        "assets/revertitparrot.gif",
+        "assets/tripletsparrot.gif",
+        "assets/unicornparrot.gif"
+    ]
+}
+
 function flipCard(element) {
     const frontFace = element.querySelector(".front-face");
     const backFace = element.querySelector(".back-face");
@@ -10,7 +22,7 @@ function flipCard(element) {
 }
 
 function setterNumberOfCards() {
-    const numberOfCards = prompt("Insira o número de cartas (pares entre 4 e 14)");
+    let numberOfCards = prompt("Insira o número de cartas (pares entre 4 e 14)");
 
     while (!cardsValidation(numberOfCards)) {
         numberOfCards = prompt("Insira o número de cartas (pares entre 4 e 14)");
@@ -33,6 +45,37 @@ function cardsValidation(numberOfCards) {
     }
 }
 
+function createCards(numberOfCards) {
+    const gameScreen = document.querySelector(".game-screen");
+    const faceClassList = ["front-face", "back-face"];
+    const imgList = getGameImages();
+
+    for (let i = 0; i < numberOfCards; i++) {
+        const card = document.createElement('div');
+        card.classList.add("card");
+        card.setAttribute("onclick", "cardActivator(this)");
+
+        for (faceClass in faceClassList) {
+            const face = document.createElement('div');
+            face.classList.add(faceClassList[faceClass]);
+
+            const faceImg = document.createElement("img");
+
+            if (faceClassList[faceClass] === "front-face"){
+                faceImg.setAttribute("src", "assets/front.png");
+            }else{
+                // every card in the pair of cards should have the same image
+                const imgIndex = Math.floor(i/2);
+                faceImg.setAttribute("src", imgList[imgIndex]);
+            }
+            
+            face.appendChild(faceImg);
+            card.appendChild(face);
+            gameScreen.appendChild(card);
+        } 
+    }
+}
+
 function setWaitTime(gameCards) {
     const allCards = document.querySelectorAll(".card");
 
@@ -46,36 +89,30 @@ function setWaitTime(gameCards) {
 
 function shuffleCards(gameCards) {
     const cardImg = [];
-    let card;
 
     function classifier() {
         return Math.random() - 0.5;
     }
 
-    for (card in gameCards) {
-        cardImg.push(gameCards[card].querySelector(".back-face").children[0].src);
+    for (let i = 0; i < gameCards.length; i++) {
+        cardImg.push(gameCards[i].querySelector(".back-face").children[0].src);
     }
 
     cardImg.sort(classifier);
 
-    for (card in gameCards) {
-        gameCards[card].querySelector(".back-face").children[0].src = cardImg[card];
+    for (let i = 0; i < gameCards.length; i++) {
+        gameCards[i].querySelector(".back-face").children[0].src = cardImg[i];
     }
 }
 
 function firstViewTimer(gameCards) {
-    for (card in gameCards) {
-        flipCard(gameCards[card]);
+    function flipAllCards() {
+        for (let i = 0; i < gameCards.length; i++) {
+            flipCard(gameCards[i]);
+        }
     }
-
-    setTimeout(
-        function () {
-            for (card in gameCards) {
-                flipCard(gameCards[card]);
-            }
-        },
-        setWaitTime(gameCards)
-    );
+    flipAllCards();
+    setTimeout(flipAllCards, setWaitTime(gameCards));
 }
 
 function cardActivator(element) {
@@ -114,10 +151,9 @@ function addMoves() {
 function scoreValidation(activeCards) {
     const firstActiveImgSrc = activeCards[0].querySelector(".front-face").children[0].src;
     const lastActiveImgSrc = activeCards[1].querySelector(".front-face").children[0].src;
-    let i = 0;
 
     if (firstActiveImgSrc === lastActiveImgSrc) {
-        for (i; i < activeCards.length; i++) {
+        for (let i = 0; i < activeCards.length; i++) {
             cardDeactivator(activeCards[i]);
             activeCards[i].classList.add("correct");
             addScore();
@@ -128,7 +164,7 @@ function scoreValidation(activeCards) {
         // then flip the cards back to the initial position
         setTimeout(
             function () {
-                for (i; i < activeCards.length; i++) {
+                for (let i = 0; i < activeCards.length; i++) {
                     cardDeactivator(activeCards[i]);
                     flipCard(activeCards[i]);
                 }
@@ -139,34 +175,21 @@ function scoreValidation(activeCards) {
 
 function gameStarter() {
     const numberOfCards = setterNumberOfCards();
-    const deck = document.getElementsByClassName("card");
-    const gameCards = [];
-    let i = 0;
-
-    // hiding the undesired cards
-    for (i = numberOfCards; i < 14; i++) {
-        deck[i].classList.add("hidden");
-    }
-
-    // getting the game cards
-    for (i = 0; i < deck.length; i++) {
-        if (!(deck[i].classList.contains("hidden"))) {
-            gameCards.push(deck[i]);
-        }
-    }
-
+    createCards(numberOfCards);
+    
+    const gameCards = document.getElementsByClassName("card");
     shuffleCards(gameCards);
+    // Let the player see the cards for the first time
     firstViewTimer(gameCards);
     setTimeout(startTimer, setWaitTime(gameCards));
 }
 
 function endGameChecker() {
     const allCards = document.querySelectorAll(".card");
-    const hiddenCards = document.querySelectorAll(".hidden");
     const correctCards = document.querySelectorAll(".correct");
     const moves = document.getElementById("moves").children[1];
 
-    if (allCards.length - hiddenCards.length === correctCards.length) {
+    if (allCards.length === correctCards.length) {
         // stop timer
         clearInterval(document.getElementById("timerID").innerHTML);
         let gameTime = document.getElementById("time").children[1].innerHTML;
